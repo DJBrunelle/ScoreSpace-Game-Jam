@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class Ship : Actor
 {
+    public StationController station;
     public int speed;
     public int damage;
 
-    Rigidbody2D rb;
+    protected Rigidbody2D rb;
+    protected Vector3 stationPos;
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        stationPos = station.gameObject.transform.position; 
+        LoadHealth();
     }
 
     public void Move(Vector2 direction)
@@ -32,6 +30,6 @@ public class Ship : Actor
 
     public void DoDamage(Actor target)
     {
-
+        
     }
 }

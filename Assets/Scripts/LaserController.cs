@@ -22,13 +22,13 @@ public class LaserController : MonoBehaviour
     {
         if (!inPool)
         {
-            transform.position += -transform.up * speed * Time.deltaTime;
+            transform.position += transform.up * speed * Time.deltaTime;
         }
     }
 
     void PutInPool()
     {
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = new Vector3(0, 0, 1);
         inPool = true;
     }
 
@@ -38,7 +38,7 @@ public class LaserController : MonoBehaviour
         {
             PutInPool();
         }
-        if (col.gameObject.tag == "Actor")
+        if (col.gameObject.tag == "Enemy")
         {
             var actor = col.gameObject.GetComponent<Actor>();
 

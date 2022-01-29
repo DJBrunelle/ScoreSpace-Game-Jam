@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Laser
   - Wall
+  - Station
+  - Friendly
+  - Enemy
   layers:
   - Default
   - TransparentFX

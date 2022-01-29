@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class StationController : Actor
 {
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
+        LoadHealth();
     }
 
-    // Update is called once per frame
+        // Update is called once per frame
     void Update()
     {
-        
+        UpdateHealth();
+        if (isDead())
+        {
+            
+        }
     }
+
 }

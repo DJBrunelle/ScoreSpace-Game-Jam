@@ -17,8 +17,6 @@ public class ArenaController : MonoBehaviour
         Instantiate(wall, new Vector3(-xBounds,0,0),Quaternion.identity, transform).transform.localScale = new Vector3(0.1f,1,1);
         Instantiate(wall, new Vector3(0,yBounds,0),Quaternion.identity, transform).transform.localScale = new Vector3(1,0.1f,1);
         Instantiate(wall, new Vector3(0,-yBounds,0),Quaternion.identity, transform).transform.localScale = new Vector3(1,0.1f,1);
-
-
     }
 
     // Start is called before the first frame update
@@ -29,6 +27,11 @@ public class ArenaController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    void SpawnyBoi()
     {
         
     }

@@ -5,22 +5,25 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     public int baseHealth;
+
+    public Transform healthSprite;
     int currentHealth;
     // Start is called before the first frame update
-    void Start()
+    protected void LoadHealth()
     {
-        baseHealth = currentHealth;
+        currentHealth = baseHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected void UpdateHealth()
     {
-        
+        healthSprite.localScale = new Vector3((currentHealth/(float)baseHealth),0.05f, 1);
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        Debug.Log(gameObject.name+": "+ damage);
+        Debug.Log(gameObject.name+": "+ currentHealth);
     }
 
     public void Heal(int health)
@@ -36,6 +39,11 @@ public class Actor : MonoBehaviour
 
     public bool isDead()
     {
-        return currentHealth <= 0;
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            return true;
+        }
+        return false;
     }
 }

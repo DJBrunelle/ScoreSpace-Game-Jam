@@ -37,6 +37,9 @@ public class PlayerController : Ship
                 Fire();
             }
         }
+
+        UpdateHealth();
+
     }
 
     // Update is called once per frame
@@ -44,7 +47,7 @@ public class PlayerController : Ship
     {
         if (Input.GetKey(thrustKey))
         {
-            Move(transform.up * -1);
+            Move(transform.up);
         }
         if (Input.GetKey(brakeKey))
         {
@@ -62,7 +65,7 @@ public class PlayerController : Ship
 
         Vector3 relPos = shipLocation - mouseLocation;
 
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, relPos);    
+        transform.rotation = Quaternion.LookRotation(Vector3.back, -relPos);    
     }
 
     void Fire()
@@ -88,12 +91,14 @@ public class PlayerController : Ship
             laserShot = usedLaser.gameObject;
         }
 
+        Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y, 1);
+
         if (laserShot == null)
         {
-            Instantiate(laser, transform.position, transform.rotation, GameObject.Find("LaserPool").transform);
+            Instantiate(laser, spawnPos, transform.rotation, GameObject.Find("LaserPool").transform);
         } else
         {
-            laserShot.transform.position = transform.position;
+            laserShot.transform.position = spawnPos;
             laserShot.transform.rotation = transform.rotation;
             laserShot.GetComponent<LaserController>().inPool = false;
         }
