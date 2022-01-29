@@ -7,8 +7,13 @@ public class PlayerController : Ship
     public KeyCode thrustKey;
     public KeyCode brakeKey;
     public KeyCode shootKey;
+    public int fireRate;
+
+    float timeSinceFire;
 
     Camera cam;
+    
+    public GameObject laser;
 
     // Start is called before the first frame update
     
@@ -21,7 +26,17 @@ public class PlayerController : Ship
 
     void Update()
     {
+        timeSinceFire += Time.deltaTime;
+
         FaceMouse();
+
+        if (Input.GetKey(shootKey))
+        {
+            if (timeSinceFire > (1f/fireRate))
+            {
+                Fire();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -48,6 +63,42 @@ public class PlayerController : Ship
         Vector3 relPos = shipLocation - mouseLocation;
 
         transform.rotation = Quaternion.LookRotation(Vector3.forward, relPos);    
+    }
+
+    void Fire()
+    {
+        var pool = GameObject.FindGameObjectsWithTag("Laser");
+
+        LaserController usedLaser = null;
+
+        for (int ii = 0 ; ii < pool.Length; ii++)
+        {
+            usedLaser = pool[ii].GetComponent<LaserController>();
+
+            if (usedLaser.inPool)
+            {
+                break;
+            }
+        }
+
+        GameObject laserShot = null;
+
+        if (usedLaser != null && usedLaser.inPool)
+        {
+            laserShot = usedLaser.gameObject;
+        }
+
+        if (laserShot == null)
+        {
+            Instantiate(laser, transform.position, transform.rotation, GameObject.Find("LaserPool").transform);
+        } else
+        {
+            laserShot.transform.position = transform.position;
+            laserShot.transform.rotation = transform.rotation;
+            laserShot.GetComponent<LaserController>().inPool = false;
+        }
+
+        timeSinceFire = 0f;
     }
 }
 
