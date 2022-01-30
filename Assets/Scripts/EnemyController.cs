@@ -41,7 +41,7 @@ public class EnemyController : Ship
 
         Vector3 relPos = shipLocation - stationPos;
 
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, relPos); 
+        transform.rotation = Quaternion.LookRotation(Vector3.back, -relPos); 
     }
 
     void BomberAttack()
@@ -50,7 +50,7 @@ public class EnemyController : Ship
 
         if (rb.velocity.magnitude < speed)
         {
-            Move(-transform.up * speed * Time.fixedDeltaTime);
+            Move(transform.up * speed * Time.fixedDeltaTime);
         }
 
     }
@@ -73,7 +73,7 @@ public class EnemyController : Ship
             timeSinceDamage += Time.fixedDeltaTime;
         } else if (rb.velocity.magnitude < speed)
         {
-            Move(-transform.up * speed * Time.fixedDeltaTime);
+            Move(transform.up * speed * Time.fixedDeltaTime);
         }
     }
 
