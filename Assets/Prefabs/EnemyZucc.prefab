@@ -101,7 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 50
   healthSprite: {fileID: 6733617307672567181}
-  station: {fileID: 8004415504902974794, guid: 05681076951d3a7488a65f368a615e36, type: 3}
   speed: 3
   damage: 25
   type: 1
@@ -231,7 +230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6733617307672567180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
   m_LocalScale: {x: 1, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 6733617307239469468}
