@@ -51,8 +51,7 @@ public class PlayerController : Ship
         if (Input.GetKey(thrustKey))
         {
             Move(transform.up);
-        }
-        if (Input.GetKey(brakeKey))
+        } else
         {
             Brake();
         }
