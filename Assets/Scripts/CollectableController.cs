@@ -8,6 +8,8 @@ public class CollectableController : MonoBehaviour
     public Stat stat;
     public int duration;
 
+    public float spawnTime;
+
     public CollectableType type;
 
     // Start is called before the first frame update
@@ -19,7 +21,12 @@ public class CollectableController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        spawnTime -= Time.deltaTime;
+
+        if (spawnTime <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -27,12 +34,9 @@ public class CollectableController : MonoBehaviour
         if (col.tag == "Friendly")
         {
             col.GetComponent<PlayerController>().Powerup(multiplier, stat, duration);
+            Destroy(gameObject);
         }
-
-        Destroy(gameObject);
     }
-
-
 }
 
 public enum CollectableType{

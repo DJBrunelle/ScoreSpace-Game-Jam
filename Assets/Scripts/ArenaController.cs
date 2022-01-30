@@ -9,12 +9,16 @@ public class ArenaController : MonoBehaviour
     public GameObject bomber;
     public GameObject ranger;
 
+    public float powerSpawnRate;
+    public GameObject powerup;
+
     SpawnChance spawnChance = new SpawnChance();
 
     public int xBounds;
     public int yBounds;
 
 
+    float timeSincePower;
     float timeSinceSpawn;
     public GameObject wall;
 
@@ -43,6 +47,13 @@ public class ArenaController : MonoBehaviour
             timeSinceSpawn = 0;
         }
         timeSinceSpawn += Time.deltaTime;
+
+        if (timeSincePower > (1/powerSpawnRate))
+        {
+            PowerupSpawn();
+            timeSincePower = 0;
+        }
+        timeSincePower += Time.deltaTime;
     }
 
     void SpawnyBoi()
@@ -77,6 +88,11 @@ public class ArenaController : MonoBehaviour
         {
             Instantiate(ranger,point,Quaternion.identity);
         }
+    }
+
+    void PowerupSpawn()
+    {
+        Instantiate(powerup, new Vector3(Random.Range(-xBounds + 5, xBounds - 5), Random.Range(-yBounds + 5, yBounds - 5), 0), Quaternion.identity);
     }
 }
 

@@ -127,6 +127,11 @@ public class PlayerController : Ship
         powerups.Add(newPower);
     }
 
+    public new void Move(Vector2 direction)
+    {
+        rb.velocity = direction * speed;
+    }
+
     public void CheckPowerups()
     {
         foreach(Powerup power in powerups)
