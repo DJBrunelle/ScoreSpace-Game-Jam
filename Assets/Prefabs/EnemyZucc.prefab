@@ -99,12 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021c8f4ddcea75b45b69139bcd4e4a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 50
+  baseHealth: 40
   healthSprite: {fileID: 6733617307672567181}
   speed: 3
   damage: 25
   type: 1
-  damageInterval: 1
+  damageRate: 1
 --- !u!60 &496076237852753834
 PolygonCollider2D:
   m_ObjectHideFlags: 0

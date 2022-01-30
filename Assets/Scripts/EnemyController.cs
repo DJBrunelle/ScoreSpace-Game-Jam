@@ -7,9 +7,10 @@ public class EnemyController : Ship
     
     public EnemyType type;
 
-    public int damageInterval;
+    public int damageRate;
 
     float timeSinceDamage;
+
     void FixedUpdate()
     {
         if (type == EnemyType.Bomber)
@@ -65,7 +66,7 @@ public class EnemyController : Ship
         {
             rb.velocity = rb.velocity * 0.95f;
 
-            if (timeSinceDamage > (1f / damageInterval))
+            if (timeSinceDamage > (1f / damageRate))
             {
                 station.TakeDamage(damage);
                 timeSinceDamage = 0;
@@ -83,6 +84,10 @@ public class EnemyController : Ship
         {
             col.gameObject.GetComponent<Actor>().TakeDamage(damage);
             Destroy(gameObject);
+        }
+        if (col.gameObject.tag == "Enemy")
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
         }
     }
 }

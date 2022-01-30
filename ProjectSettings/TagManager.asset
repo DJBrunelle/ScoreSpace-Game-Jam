@@ -9,6 +9,7 @@ TagManager:
   - Station
   - Friendly
   - Enemy
+  - Powerup
   layers:
   - Default
   - TransparentFX

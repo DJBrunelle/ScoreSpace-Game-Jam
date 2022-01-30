@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CollectableController : MonoBehaviour
 {
+    public int multiplier;
+    public Stat stat;
+    public int duration;
 
     public CollectableType type;
 
@@ -18,6 +21,16 @@ public class CollectableController : MonoBehaviour
     {
         
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == "Friendly")
+        {
+            col.GetComponent<PlayerController>().Powerup(multiplier, stat, duration);
+        }
+    }
+
+
 }
 
 public enum CollectableType{

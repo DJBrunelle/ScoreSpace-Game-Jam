@@ -12,6 +12,8 @@ public class PlayerController : Ship
     float timeSinceFire;
 
     Camera cam;
+
+    List<Powerup> powerups = new List<Powerup>();
     
     public GameObject laser;
 
@@ -39,6 +41,7 @@ public class PlayerController : Ship
         }
 
         UpdateHealth();
+        CheckPowerups();
 
     }
 
@@ -105,6 +108,82 @@ public class PlayerController : Ship
 
         timeSinceFire = 0f;
     }
+
+    public void Powerup(int multiplier, Stat stat, int duration)
+    {
+        Powerup newPower = new Powerup(multiplier, stat,duration);
+
+        if (stat == Stat.FireRate)
+        {
+            fireRate = newPower.Activate(fireRate);
+        } else if (stat == Stat.Speed)
+        {
+            speed = newPower.Activate(speed);
+        }
+        powerups.Add(newPower);
+    }
+
+    public void CheckPowerups()
+    {
+        foreach(Powerup power in powerups)
+        {
+            power.Use();
+            if (!power.IsActive())
+            {
+                if (power.stat == Stat.FireRate)
+                {
+                    fireRate = power.Deactivate(fireRate);
+                } else if (power.stat == Stat.Speed)
+                {
+                    speed = power.Deactivate(speed);  
+                }
+                powerups.Remove(power);
+            }
+        }
+    }
 }
 
+public enum Stat
+{
+    Speed,
+    FireRate
+};
 
+public class Powerup
+{
+    public int multiplier;
+    public Stat stat;
+    public float duration;
+
+    public Powerup(int mult, Stat shipStat, int setDuration)
+    {
+        multiplier = mult;
+        stat = shipStat;
+        duration = (float)setDuration;
+    }
+
+    public void Use()
+    {
+        duration -= Time.deltaTime;
+    }
+
+    public int Activate(int incomingStat)
+    {
+        return (int) incomingStat * multiplier;
+    }
+
+    public bool IsActive()
+    {
+        if (duration <= 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public int Deactivate(int stat)
+    {
+        return (int)(stat / multiplier);
+    }
+
+}

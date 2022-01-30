@@ -11,7 +11,7 @@ public class Ship : Actor
     protected Rigidbody2D rb;
     protected Vector3 stationPos;
     // Start is called before the first frame update
-    void Awake()
+    protected void Awake()
     {
         station = GameObject.Find("Station").GetComponent<StationController>();
         rb = GetComponent<Rigidbody2D>();

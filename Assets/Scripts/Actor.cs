@@ -22,8 +22,6 @@ public class Actor : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log(gameObject.name+": "+ damage);
-        Debug.Log(gameObject.name+": "+ currentHealth);
     }
 
     public void Heal(int health)
