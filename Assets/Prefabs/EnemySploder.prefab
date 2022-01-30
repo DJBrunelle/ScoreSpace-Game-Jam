@@ -217,7 +217,8 @@ MonoBehaviour:
   speed: 5
   damage: 20
   type: 0
-  damageInterval: 0
+  damageRate: 0
+  points: 25
 --- !u!60 &178422474184792237
 PolygonCollider2D:
   m_ObjectHideFlags: 0

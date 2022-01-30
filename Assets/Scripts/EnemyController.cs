@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class EnemyController : Ship
 {
-    
+    public GameController gameController;
     public EnemyType type;
 
     public int damageRate;
 
+    public int points;
+
     float timeSinceDamage;
+
+    new void Awake()
+    {
+        base.Awake();
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+    }
 
     void FixedUpdate()
     {
@@ -28,6 +36,7 @@ public class EnemyController : Ship
         UpdateHealth();
         if (isDead())
         {
+            gameController.AddToScore(points);
             Destroy(gameObject);
         }
     }

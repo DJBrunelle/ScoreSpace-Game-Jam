@@ -105,6 +105,7 @@ MonoBehaviour:
   damage: 25
   type: 1
   damageRate: 1
+  points: 50
 --- !u!60 &496076237852753834
 PolygonCollider2D:
   m_ObjectHideFlags: 0
