@@ -111,6 +111,10 @@ public class PlayerController : Ship
 
     public void Powerup(int multiplier, Stat stat, int duration)
     {
+        if (multiplier == 0 || duration == 0)
+        {
+            return;
+        }
         Powerup newPower = new Powerup(multiplier, stat,duration);
 
         if (stat == Stat.FireRate)
@@ -185,5 +189,4 @@ public class Powerup
     {
         return (int)(stat / multiplier);
     }
-
 }

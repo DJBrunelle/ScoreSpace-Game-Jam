@@ -28,6 +28,8 @@ public class CollectableController : MonoBehaviour
         {
             col.GetComponent<PlayerController>().Powerup(multiplier, stat, duration);
         }
+
+        Destroy(gameObject);
     }
 
 
