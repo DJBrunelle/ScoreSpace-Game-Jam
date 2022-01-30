@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ship : Actor
 {
-    public StationController station;
+    protected StationController station;
     public int speed;
     public int damage;
 
@@ -13,6 +13,7 @@ public class Ship : Actor
     // Start is called before the first frame update
     void Awake()
     {
+        station = GameObject.Find("Station").GetComponent<StationController>();
         rb = GetComponent<Rigidbody2D>();
         stationPos = station.gameObject.transform.position; 
         LoadHealth();
