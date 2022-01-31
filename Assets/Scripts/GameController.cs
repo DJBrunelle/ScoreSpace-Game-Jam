@@ -9,6 +9,10 @@ public class GameController : MonoBehaviour
     AudioSource gameTheme;
     AudioSource creditsTheme;
 
+    public GameObject gameUI;
+    public GameObject creditsUI;
+    public Button start;
+
     public StationController station;
     public PlayerController player;
     public ArenaController arena;
@@ -62,20 +66,32 @@ public class GameController : MonoBehaviour
 
     void Restart()
     {
+        Time.timeScale = 1;
+        player.Reset();
+        arena.Reset();
+        creditsUI.SetActive(false);
+        gameUI.SetActive(true);
+        gameOverText.gameObject.SetActive(false);
+        creditsTheme.Stop();
+        gameOver = false;
+        gameTheme.Play();
+        wave = 0;
         score = 0;
+        waveScore = 0;
     }
-
-    
 
     void CheckLoseCondition()
     {
         if ((player.isDead() || station.isDead()) && !gameOver)
         {
             gameOver = true;
-            Time.timeScale = 0;
+            Time.timeScale = 0.01f;
             gameOverText.gameObject.SetActive(true);
             gameTheme.Stop();
             creditsTheme.Play();
+            gameUI.SetActive(false);
+            creditsUI.SetActive(true);
+            start.onClick.AddListener(Restart);
         }
     }
 

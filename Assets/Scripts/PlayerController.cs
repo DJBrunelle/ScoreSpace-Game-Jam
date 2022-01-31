@@ -7,6 +7,9 @@ public class PlayerController : Ship
 
     AudioSource[] audioSources;
 
+    AudioSource powerUpSound;
+    AudioSource powerDownSound;
+
 
     public KeyCode thrustKey;
     public KeyCode brakeKey;
@@ -27,6 +30,9 @@ public class PlayerController : Ship
     {
         base.Awake();
         audioSources = GetComponents<AudioSource>();
+
+        powerUpSound = audioSources[0];
+        powerDownSound = audioSources[1];
     }
 
     void Start()
@@ -72,6 +78,13 @@ public class PlayerController : Ship
         {
             Brake();
         }
+    }
+
+    public void Reset()
+    {
+        transform.position = new Vector3(0,3,0);
+        powerups.Clear();
+        LoadHealth();
     }
 
     void FaceMouse()
@@ -135,12 +148,17 @@ public class PlayerController : Ship
 
         if (stat == Stat.FireRate)
         {
+            if (fireRate >= 64)
+            {
+                newPower.multiplier = 1;
+            }
             fireRate = newPower.Activate(fireRate);
         } else if (stat == Stat.Speed)
         {
             speed = newPower.Activate(speed);
         }
         powerups.Add(newPower);
+        powerUpSound.Play();
     }
 
     public new void Move(Vector2 direction)
@@ -164,6 +182,7 @@ public class PlayerController : Ship
                     speed = power.Deactivate(speed);  
                 }
                 powerups.Remove(power);
+                powerDownSound.Play();
             }
         }
     }

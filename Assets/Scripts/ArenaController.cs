@@ -6,6 +6,9 @@ using System.Linq;
 public class ArenaController : MonoBehaviour
 {
     public float spawnRate;
+    public GameObject enemyParent;
+    public GameObject powerupParent;
+
     public GameObject bomber;
     public GameObject ranger;
 
@@ -22,10 +25,14 @@ public class ArenaController : MonoBehaviour
     float timeSincePower;
     float timeSinceSpawn;
     public GameObject wall;
-        public GameObject star;
+    public GameObject star;
+    
+    float startSpawnRate;
 
     void Awake()
     {
+        startSpawnRate = spawnRate;
+
         transform.localScale = new Vector2(xBounds*4, yBounds*4);
 
         Instantiate(wall, new Vector3(xBounds,0,0),Quaternion.identity, transform).transform.localScale = new Vector3(0.1f,1,1);
@@ -41,6 +48,27 @@ public class ArenaController : MonoBehaviour
             var anim = newStar.GetComponent<Animator>();
             anim.speed = Random.Range(0.5f,1.5f);
 
+        }
+    }
+
+    public void Reset()
+    {
+        spawnRate = startSpawnRate;
+        var children = enemyParent.GetComponentsInChildren<Transform>();
+        foreach(var child in children)
+        {
+            if (child.name != "Enemies")
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        children = powerupParent.GetComponentsInChildren<Transform>();
+        foreach(var child in children)
+        {
+            if (child.name != "Powerups")
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 
@@ -88,10 +116,10 @@ public class ArenaController : MonoBehaviour
 
         if (next == EnemyType.Bomber)
         {
-            Instantiate(bomber,point,Quaternion.identity);
+            Instantiate(bomber,point,Quaternion.identity, enemyParent.transform);
         } else if (next == EnemyType.Ranged)
         {
-            Instantiate(ranger,point,Quaternion.identity);
+            Instantiate(ranger,point,Quaternion.identity,enemyParent.transform);
         }
     }
 
@@ -104,7 +132,7 @@ public class ArenaController : MonoBehaviour
 
         if (Random.Range(0f,1f) < chancePowerUp)
         {
-            Instantiate(powerup, location, Quaternion.identity);
+            Instantiate(powerup, location, Quaternion.identity,powerupParent.transform);
         }
     }
 }

@@ -7,7 +7,7 @@ public class Actor : MonoBehaviour
     public int baseHealth;
 
     public Transform healthSprite;
-    int currentHealth;
+    protected int currentHealth;
     // Start is called before the first frame update
     protected void LoadHealth()
     {

@@ -13,10 +13,11 @@ public class StationController : Actor
     void Update()
     {
         UpdateHealth();
-        if (isDead())
-        {
-            
-        }
+    }
+
+    public void Reset()
+    {
+        currentHealth = baseHealth;
     }
 
 }
