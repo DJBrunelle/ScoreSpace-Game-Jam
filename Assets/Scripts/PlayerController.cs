@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerController : Ship
 {
+
+    AudioSource[] audioSources;
+
+    AudioSource laserSound;
+
     public KeyCode thrustKey;
     public KeyCode brakeKey;
     public KeyCode leftKey;
@@ -19,9 +24,13 @@ public class PlayerController : Ship
     
     public GameObject laser;
 
-    // Start is called before the first frame update
-    
+    new void Awake()
+    {
+        base.Awake();
+        audioSources = GetComponents<AudioSource>();
 
+        laserSound = audioSources[0];
+    }
 
     void Start()
     {
@@ -113,7 +122,7 @@ public class PlayerController : Ship
         {
             laserShot.transform.position = spawnPos;
             laserShot.transform.rotation = transform.rotation;
-            laserShot.GetComponent<LaserController>().inPool = false;
+            laserShot.GetComponent<LaserController>().ReFire(transform.position,transform.rotation);
         }
 
         timeSinceFire = 0f;

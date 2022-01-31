@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    AudioSource[] audioSources;
+    AudioSource gameTheme;
+    AudioSource creditsTheme;
+
     public StationController station;
     public PlayerController player;
     public ArenaController arena;
 
     public Text scoreText;
     public Text waveText;
+    public Text gameOverText;
 
     public int scaleInterval;
 
@@ -18,11 +23,21 @@ public class GameController : MonoBehaviour
     int waveScore = 0;
     int wave = 0;
 
+    bool gameOver = false;
+
+    void Awake()
+    {
+        audioSources = GetComponents<AudioSource>();
+
+        gameTheme = audioSources[0];
+        creditsTheme = audioSources[1];
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameTheme.Play();
     }
 
     // Update is called once per frame
@@ -45,9 +60,23 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void Restart()
+    {
+        score = 0;
+    }
+
+    
+
     void CheckLoseCondition()
     {
-
+        if ((player.isDead() || station.isDead()) && !gameOver)
+        {
+            gameOver = true;
+            Time.timeScale = 0;
+            gameOverText.gameObject.SetActive(true);
+            gameTheme.Stop();
+            creditsTheme.Play();
+        }
     }
 
     public void AddToScore(int points)

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class LaserController : MonoBehaviour
 {
+    AudioSource[] audioSources;
+    AudioSource laserSound;
+    AudioSource hitSound;
+
+
     public PlayerController player;
     public ArenaController arena;
     public int speed;
@@ -15,6 +20,12 @@ public class LaserController : MonoBehaviour
     void Awake()
     {
         damage = player.damage;
+
+        audioSources = GetComponents<AudioSource>();
+        laserSound = audioSources[0];
+        hitSound = audioSources[1];
+
+        laserSound.Play();
     }
 
     // Update is called once per frame
@@ -24,6 +35,14 @@ public class LaserController : MonoBehaviour
         {
             transform.position += transform.up * speed * Time.deltaTime;
         }
+    }
+
+    public void ReFire(Vector3 position, Quaternion rotation)
+    {
+        transform.position = position;
+        transform.rotation = rotation;
+        inPool = false;
+        laserSound.Play();
     }
 
     void PutInPool()
@@ -43,6 +62,7 @@ public class LaserController : MonoBehaviour
             var actor = col.gameObject.GetComponent<Actor>();
 
             actor.TakeDamage(damage);
+            hitSound.Play();
             PutInPool();
         }
     }

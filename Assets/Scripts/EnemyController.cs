@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class EnemyController : Ship
 {
+    AudioSource[] audioSources;
+    AudioSource collisionSound;
+    AudioSource explosionSound;
+
     public GameController gameController;
     public ArenaController arenaController;
     public EnemyType type;
@@ -19,6 +23,11 @@ public class EnemyController : Ship
         base.Awake();
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         arenaController = GameObject.Find("Arena").GetComponent<ArenaController>();
+
+        audioSources = GetComponents<AudioSource>();
+
+        collisionSound = audioSources[0];
+        explosionSound = audioSources[1];
     }
 
     void FixedUpdate()
@@ -40,6 +49,7 @@ public class EnemyController : Ship
         {
             arenaController.PowerupSpawn(transform.position);
             gameController.AddToScore(points);
+            explosionSound.Play();
             Destroy(gameObject);
         }
     }
@@ -95,6 +105,7 @@ public class EnemyController : Ship
         if (col.gameObject.tag == "Friendly")
         {
             col.gameObject.GetComponent<Actor>().TakeDamage(damage);
+            collisionSound.Play();
             Destroy(gameObject);
         }
         if (col.gameObject.tag == "Enemy")
