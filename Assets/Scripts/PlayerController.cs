@@ -7,7 +7,6 @@ public class PlayerController : Ship
 
     AudioSource[] audioSources;
 
-    AudioSource laserSound;
 
     public KeyCode thrustKey;
     public KeyCode brakeKey;
@@ -28,8 +27,6 @@ public class PlayerController : Ship
     {
         base.Awake();
         audioSources = GetComponents<AudioSource>();
-
-        laserSound = audioSources[0];
     }
 
     void Start()
@@ -153,8 +150,9 @@ public class PlayerController : Ship
 
     public void CheckPowerups()
     {
-        foreach(Powerup power in powerups)
+        for (int ii = 0; ii < powerups.Count; ii++)
         {
+            var power = powerups[ii];
             power.Use();
             if (!power.IsActive())
             {

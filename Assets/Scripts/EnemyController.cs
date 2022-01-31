@@ -9,8 +9,12 @@ public class EnemyController : Ship
     AudioSource explosionSound;
 
     public GameController gameController;
+    public GameObject explosion;
     public ArenaController arenaController;
     public EnemyType type;
+
+    Animator anim;
+    public GameObject fazer;
 
     public int damageRate;
 
@@ -28,6 +32,8 @@ public class EnemyController : Ship
 
         collisionSound = audioSources[0];
         explosionSound = audioSources[1];
+
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -50,6 +56,7 @@ public class EnemyController : Ship
             arenaController.PowerupSpawn(transform.position);
             gameController.AddToScore(points);
             explosionSound.Play();
+            Instantiate(explosion, transform.position,Quaternion.identity);
             Destroy(gameObject);
         }
     }
@@ -84,8 +91,10 @@ public class EnemyController : Ship
 
         FaceStation();
 
-        if(dist < 5)
+        if(dist < 3.5f)
         {
+            anim.SetBool("isAttacking", true);
+            fazer.SetActive(true);
             rb.velocity = rb.velocity * 0.95f;
 
             if (timeSinceDamage > (1f / damageRate))
@@ -96,6 +105,7 @@ public class EnemyController : Ship
             timeSinceDamage += Time.fixedDeltaTime;
         } else if (rb.velocity.magnitude < speed)
         {
+            anim.SetBool("isAttacking", false);
             Move(transform.up * speed * Time.fixedDeltaTime);
         }
     }
@@ -106,6 +116,7 @@ public class EnemyController : Ship
         {
             col.gameObject.GetComponent<Actor>().TakeDamage(damage);
             collisionSound.Play();
+            Instantiate(explosion, transform.position,Quaternion.identity);
             Destroy(gameObject);
         }
         if (col.gameObject.tag == "Enemy")

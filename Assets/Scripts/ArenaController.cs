@@ -22,6 +22,7 @@ public class ArenaController : MonoBehaviour
     float timeSincePower;
     float timeSinceSpawn;
     public GameObject wall;
+        public GameObject star;
 
     void Awake()
     {
@@ -31,6 +32,16 @@ public class ArenaController : MonoBehaviour
         Instantiate(wall, new Vector3(-xBounds,0,0),Quaternion.identity, transform).transform.localScale = new Vector3(0.1f,1,1);
         Instantiate(wall, new Vector3(0,yBounds,0),Quaternion.identity, transform).transform.localScale = new Vector3(1,0.1f,1);
         Instantiate(wall, new Vector3(0,-yBounds,0),Quaternion.identity, transform).transform.localScale = new Vector3(1,0.1f,1);
+
+        for( int ii = 0; ii < 50; ii++)
+        {
+            Vector3 pos = new Vector3(Random.Range(-xBounds, xBounds), Random.Range(-yBounds, yBounds),2);
+            var newStar = Instantiate(star,pos,Quaternion.identity,GameObject.Find("Background").transform);
+
+            var anim = newStar.GetComponent<Animator>();
+            anim.speed = Random.Range(0.5f,1.5f);
+
+        }
     }
 
     // Start is called before the first frame update
