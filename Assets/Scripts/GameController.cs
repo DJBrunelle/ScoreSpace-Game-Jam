@@ -17,13 +17,14 @@ public class GameController : MonoBehaviour
     public PlayerController player;
     public ArenaController arena;
 
+    public Text finalScoreText;
     public Text scoreText;
     public Text waveText;
     public Text gameOverText;
 
     public int scaleInterval;
 
-    int score = 0;
+    public int score = 0;
     int waveScore = 0;
     int wave = 0;
 
@@ -47,6 +48,11 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            player.TakeDamage(1000);
+        }
+
         scoreText.text = "Score: "+score.ToString();
         waveText.text = "Wave: "+wave.ToString();
 
@@ -86,12 +92,13 @@ public class GameController : MonoBehaviour
         if ((player.isDead() || station.isDead()) && !gameOver)
         {
             gameOver = true;
-            Time.timeScale = 0.01f;
+            Time.timeScale = 0;
             gameOverText.gameObject.SetActive(true);
             gameTheme.Stop();
             creditsTheme.Play();
             gameUI.SetActive(false);
             creditsUI.SetActive(true);
+            finalScoreText.text = "Score: "+score;
             start.onClick.AddListener(Restart);
         }
     }

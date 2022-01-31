@@ -38,6 +38,7 @@ public class PlayerController : Ship
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        currentHealth = 0;
     }
 
     void Update()

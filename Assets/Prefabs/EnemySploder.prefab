@@ -222,6 +222,7 @@ MonoBehaviour:
   explosion: {fileID: 7192313415617358886, guid: e1163ef82313bd84f84e34bd378ea86f, type: 3}
   arenaController: {fileID: 0}
   type: 0
+  fazer: {fileID: 0}
   damageRate: 0
   points: 25
 --- !u!60 &178422474184792237
@@ -316,7 +317,7 @@ AudioSource:
   m_GameObject: {fileID: 8497181872808381427}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 6e63a0438117aed4aa8f0b3f5c948c9e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 88021a7196657df458b74dde4c9ebd1f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -412,7 +413,7 @@ AudioSource:
   m_GameObject: {fileID: 8497181872808381427}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 6e63a0438117aed4aa8f0b3f5c948c9e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5b9096053107383418c3b95c97c25f00, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
