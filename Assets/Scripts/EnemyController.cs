@@ -7,6 +7,7 @@ public class EnemyController : Ship
     AudioSource[] audioSources;
     AudioSource collisionSound;
     AudioSource explosionSound;
+    AudioSource rangedSound;
 
     public GameController gameController;
     public GameObject explosion;
@@ -32,6 +33,10 @@ public class EnemyController : Ship
 
         collisionSound = audioSources[0];
         explosionSound = audioSources[1];
+        if (type == EnemyType.Ranged)
+        {
+            rangedSound = audioSources[2];
+        }
 
         anim = GetComponent<Animator>();
     }
@@ -50,6 +55,10 @@ public class EnemyController : Ship
         // Update is called once per frame
     void Update()
     {
+        if (gameController.gameOver && type == EnemyType.Ranged)
+        {
+            rangedSound.Stop();
+        }
         UpdateHealth();
         if (isDead())
         {
@@ -103,10 +112,15 @@ public class EnemyController : Ship
                 timeSinceDamage = 0;
             }
             timeSinceDamage += Time.fixedDeltaTime;
+            if(!rangedSound.isPlaying)
+            {
+                rangedSound.Play();
+            }
         } else if (rb.velocity.magnitude < speed)
         {
             anim.SetBool("isAttacking", false);
             Move(transform.up * speed * Time.fixedDeltaTime);
+            rangedSound.Stop();
         }
     }
 

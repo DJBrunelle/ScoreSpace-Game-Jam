@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     int waveScore = 0;
     int wave = 0;
 
-    bool gameOver = false;
+    public bool gameOver = false;
 
     void Awake()
     {
@@ -69,12 +69,13 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1;
         player.Reset();
         arena.Reset();
+        station.Reset();
         creditsUI.SetActive(false);
         gameUI.SetActive(true);
         gameOverText.gameObject.SetActive(false);
         creditsTheme.Stop();
-        gameOver = false;
         gameTheme.Play();
+        gameOver = false;
         wave = 0;
         score = 0;
         waveScore = 0;
