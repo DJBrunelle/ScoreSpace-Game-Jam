@@ -6,6 +6,8 @@ public class PlayerController : Ship
 {
     public KeyCode thrustKey;
     public KeyCode brakeKey;
+    public KeyCode leftKey;
+    public KeyCode rightKey;
     public KeyCode shootKey;
     public int fireRate;
 
@@ -51,6 +53,15 @@ public class PlayerController : Ship
         if (Input.GetKey(thrustKey))
         {
             Move(transform.up);
+        } else if (Input.GetKey(brakeKey))
+        {
+            Move(-transform.up);
+        } else if (Input.GetKey(rightKey))
+        {
+            Move(transform.right);
+        } else if (Input.GetKey(leftKey))
+        {
+            Move(-transform.right);
         } else
         {
             Brake();

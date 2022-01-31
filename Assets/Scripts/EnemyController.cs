@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : Ship
 {
     public GameController gameController;
+    public ArenaController arenaController;
     public EnemyType type;
 
     public int damageRate;
@@ -17,6 +18,7 @@ public class EnemyController : Ship
     {
         base.Awake();
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        arenaController = GameObject.Find("Arena").GetComponent<ArenaController>();
     }
 
     void FixedUpdate()
@@ -36,6 +38,7 @@ public class EnemyController : Ship
         UpdateHealth();
         if (isDead())
         {
+            arenaController.PowerupSpawn(transform.position);
             gameController.AddToScore(points);
             Destroy(gameObject);
         }
