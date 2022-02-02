@@ -5,6 +5,7 @@ using UnityEngine;
 public class CamController : MonoBehaviour
 {
 
+    public GameObject stars;
     public Transform player;
     public ArenaController arena;
     // Start is called before the first frame update
@@ -17,8 +18,13 @@ public class CamController : MonoBehaviour
     void Update()
     {
         FollowPlayer();
+        Parallax();
     }
 
+    void Parallax()
+    {
+        stars.transform.position = new Vector3(-player.position.x/10, -player.position.y/10, stars.transform.position.z);
+    }
 
     void FollowPlayer()
     {

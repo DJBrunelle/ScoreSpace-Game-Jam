@@ -12,6 +12,15 @@ public class CollectableController : MonoBehaviour
 
     public CollectableType type;
 
+    public GameObject timeLeft;
+
+    float totalSpawnTime;
+
+
+    void Awake()
+    {
+        totalSpawnTime = spawnTime;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +31,7 @@ public class CollectableController : MonoBehaviour
     void Update()
     {
         spawnTime -= Time.deltaTime;
+        timeLeft.transform.localScale = new Vector3((spawnTime/(float)totalSpawnTime),0.05f, 1);
 
         if (spawnTime <= 0)
         {

@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     AudioSource[] audioSources;
     AudioSource gameTheme;
     AudioSource creditsTheme;
+    AudioSource deathSound;
 
     public GameObject gameUI;
     public GameObject creditsUI;
@@ -36,6 +37,7 @@ public class GameController : MonoBehaviour
 
         gameTheme = audioSources[0];
         creditsTheme = audioSources[1];
+        deathSound = audioSources[2];
     }
 
 
@@ -91,6 +93,7 @@ public class GameController : MonoBehaviour
     {
         if ((player.isDead() || station.isDead()) && !gameOver)
         {
+            deathSound.Play();
             gameOver = true;
             Time.timeScale = 0;
             gameOverText.gameObject.SetActive(true);

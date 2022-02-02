@@ -18,6 +18,8 @@ public class PlayerController : Ship
     public KeyCode shootKey;
     public int fireRate;
 
+    int startFireRate;
+
     float timeSinceFire;
 
     Camera cam;
@@ -33,6 +35,8 @@ public class PlayerController : Ship
 
         powerUpSound = audioSources[0];
         powerDownSound = audioSources[1];
+
+        startFireRate = fireRate;
     }
 
     void Start()
@@ -71,10 +75,10 @@ public class PlayerController : Ship
             Move(-transform.up);
         } else if (Input.GetKey(rightKey))
         {
-            Move(transform.right);
+            Move(-transform.right);
         } else if (Input.GetKey(leftKey))
         {
-            Move(-transform.right);
+            Move(transform.right);
         } else
         {
             Brake();
@@ -83,6 +87,7 @@ public class PlayerController : Ship
 
     public void Reset()
     {
+        fireRate = startFireRate;
         transform.position = new Vector3(0,3,0);
         powerups.Clear();
         LoadHealth();
